@@ -2,3 +2,4 @@ Hola! Este es el README de este repositorio, debo aclarar que mi clase de BPDS e
 Espero que pueda entender mi situación y que no cause dudas.
 Trabajo realizado por el estudiante de cuarto semestre Samuel Duque López para la clase de Buenas Prácticas de Desarrollo de Software - 25120 en la Universidad de la Costa, CUC.
 Cambio local
+Este es un cambio realizado desde la interfaz de GitHub Web.
