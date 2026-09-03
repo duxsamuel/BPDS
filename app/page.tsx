@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -49,68 +49,228 @@ function handleUpdateText(id: number, newText: string) {
   );
 }
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            ¡Hola profe Kelly!{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              Este texto está en una caja.
-            </code>{" "}
-            -SDL
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main
+      className="pagina"
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#f5f5f5",
+      }}
+    >
+
+      <section
+        className="todo"
+        style={{
+          backgroundColor: "white",
+          borderRadius: "16px",
+          padding: "24px",
+          width: "100%",
+          maxWidth: "400px",
+          border: "2px solid #333",
+        }}
+      >
+
+        {/* ENCABEZADO */}
+        <header className="todo-header">
+          <h1>MIS TAREAS</h1>
+        </header>
+
+        <div className="separador"></div>
+
+        {/* CREAR NUEVA TAREA */}
+        <section className="crear-tarea">
+
+          <input
+            id="nuevaTarea"
+            type="text"
+            placeholder="+ Escribe una nueva tarea..."
+            aria-label="Nueva tarea"
+          />
+
+          <button
+            id="btnAgregar"
+            type="button"
+            aria-label="Agregar tarea"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+            +
+          </button>
+
+        </section>
+
+        {/* LISTA DE TAREAS */}
+        <section
+          id="listaTareas"
+          className="lista-tareas"
+        >
+
+          {/* TAREA COMPLETADA */}
+          <article
+            className="tarea tarea-completada"
+            data-id="1"
+          >
+
+            <button
+              className="btn-completar completada"
+              type="button"
+              aria-label="Marcar tarea como completada"
+            >
+              ✓
+            </button>
+
+            <span className="texto-tarea">
+              Solicitar cita médica
+            </span>
+
+            <button
+              className="btn-editar"
+              type="button"
+              aria-label="Editar tarea"
+            >
+              ✎
+            </button>
+
+            <button
+              className="btn-eliminar"
+              type="button"
+              aria-label="Eliminar tarea"
+            >
+              🗑
+            </button>
+
+          </article>
+
+
+          {/* TAREA NORMAL */}
+          <article
+            className="tarea"
+            data-id="2"
+          >
+
+            <button
+              className="btn-completar"
+              type="button"
+              aria-label="Marcar tarea como completada"
+            >
+            </button>
+
+            <span className="texto-tarea">
+              Comprar leche y pan
+            </span>
+
+            <button
+              className="btn-editar"
+              type="button"
+              aria-label="Editar tarea"
+            >
+              ✎
+            </button>
+
+            <button
+              className="btn-eliminar"
+              type="button"
+              aria-label="Eliminar tarea"
+            >
+              🗑
+            </button>
+
+          </article>
+
+
+          {/* TAREA EN EDICIÓN */}
+          <article
+            className="tarea tarea-editando"
+            data-id="3"
+          >
+
+            <button
+              className="btn-completar"
+              type="button"
+              aria-label="Marcar tarea como completada"
+            >
+            </button>
+
+            <input
+              id="editarTarea"
+              className="input-editar"
+              type="text"
+              defaultValue="Terminar informe"
+              aria-label="Editar tarea"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+            <button
+              className="btn-editar"
+              type="button"
+              aria-label="Editar tarea"
+            >
+              ✎
+            </button>
+
+            <button
+              className="btn-eliminar"
+              type="button"
+              aria-label="Eliminar tarea"
+            >
+              🗑
+            </button>
+
+          </article>
+
+
+          {/* TAREA NORMAL */}
+          <article
+            className="tarea"
+            data-id="4"
           >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+
+            <button
+              className="btn-completar"
+              type="button"
+              aria-label="Marcar tarea como completada"
+            >
+            </button>
+
+            <span className="texto-tarea">
+              Llamar al dentista
+            </span>
+
+            <button
+              className="btn-editar"
+              type="button"
+              aria-label="Editar tarea"
+            >
+              ✎
+            </button>
+
+            <button
+              className="btn-eliminar"
+              type="button"
+              aria-label="Eliminar tarea"
+            >
+              🗑
+            </button>
+
+          </article>
+
+        </section>
+
+
+        {/* INFORMACIÓN INFERIOR */}
+        <footer className="todo-footer">
+
+          <span className="ayuda-editar">
+            Desktop: ✎ aparece con hover
+          </span>
+
+          <span className="ayuda-eliminar">
+            hover → aparece 🗑
+          </span>
+
+        </footer>
+
+      </section>
+
+    </main>
   );
 }
