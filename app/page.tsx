@@ -1,6 +1,53 @@
 "use client";
+import Image from "next/image";
+import { useState } from "react";
 
 export default function Home() {
+  const [taskText, setTaskText] = useState("");
+  const [tasks, setTasks] = useState([
+  { id: 1, text: "Solicitar cita médica", completed: true, isEditing: false },
+  { id: 2, text: "Comprar leche y pan", completed: false, isEditing: false }
+]);
+function handleAddTask() {
+    if (taskText.trim() === "") return;
+
+    const newTask = {
+      id: Date.now(),
+      text: taskText,
+      completed: false,
+      isEditing: false,
+    };
+
+    setTasks([...tasks, newTask]);
+    setTaskText("");
+  }
+  function handleDeleteTask(id: number) {
+  setTasks(tasks.filter((task) => task.id !== id));
+}
+
+function handleToggleTask(id: number) {
+  setTasks(
+    tasks.map((task) =>
+      task.id === id ? { ...task, completed: !task.completed } : task
+    )
+  );
+}
+
+function handleToggleEdit(id: number) {
+  setTasks(
+    tasks.map((task) =>
+      task.id === id ? { ...task, isEditing: !task.isEditing } : task
+    )
+  );
+}
+
+function handleUpdateText(id: number, newText: string) {
+  setTasks(
+    tasks.map((task) =>
+      task.id === id ? { ...task, text: newText } : task
+    )
+  );
+}
   return (
     <main
       className="pagina"
