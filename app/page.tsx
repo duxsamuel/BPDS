@@ -109,7 +109,7 @@ function handleUpdateText(id: number, newText: string) {
             <article 
               key={task.id}
               className={'tarea ${task.completed ? "tarea-completada" : ""} ${
-                taskText.isEditing ? "tarea-editando" : ""
+                task.isEditing ? "tarea-editando" : ""
               }'}
             >
               
@@ -124,12 +124,21 @@ function handleUpdateText(id: number, newText: string) {
               aria-label="Marcar tarea como completada"
               onClick={() => handleToggleTask(task.id)}
             >
-              {taskText.completed ? "✓" : ""}
+              {task.completed ? "✓" : ""}
             </button>
 
-            <span className="texto-tarea">
-              Solicitar cita médica
-            </span>
+          {task.isEditing ? (
+            <input 
+              className="input-editar"
+              type="text"
+              value={task.text}
+              onChange={(e) => handleUpdateText(task.id, e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleToggleEdit(task.id)}
+              autoFocus
+            />
+          ) : (
+            <span className="texto-tarea">{task.text}</span>
+          )}
 
             <button
               className="btn-editar"
