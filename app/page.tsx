@@ -144,6 +144,7 @@ function handleUpdateText(id: number, newText: string) {
               className="btn-editar"
               type="button"
               aria-label="Editar tarea"
+              onClick={() => handleToggleEdit(task.id)}
             >
               ✎
             </button>
@@ -152,6 +153,7 @@ function handleUpdateText(id: number, newText: string) {
               className="btn-eliminar"
               type="button"
               aria-label="Eliminar tarea"
+              onClick={() => handleToggleEdit(task.id)}
             >
               🗑
             </button>
