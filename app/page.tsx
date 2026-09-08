@@ -96,6 +96,7 @@ function handleUpdateText(id: number, newText: string) {
             id="btnAgregar"
             type="button"
             aria-label="Agregar tarea"
+            onClick={handleAddTask}
           >
             +
           </button>
