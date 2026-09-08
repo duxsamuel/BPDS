@@ -119,11 +119,12 @@ function handleUpdateText(id: number, newText: string) {
         </section>
 
             <button
-              className="btn-completar completada"
+              className={'btn-completar ${task.completed ? "completada" : ""}'}
               type="button"
               aria-label="Marcar tarea como completada"
+              onClick={() => handleToggleTask(task.id)}
             >
-              ✓
+              {taskText.completed ? "✓" : ""}
             </button>
 
             <span className="texto-tarea">
