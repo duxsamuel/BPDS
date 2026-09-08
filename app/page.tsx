@@ -104,16 +104,19 @@ function handleUpdateText(id: number, newText: string) {
         </section>
 
         {/* LISTA DE TAREAS */}
-        <section
-          id="listaTareas"
-          className="lista-tareas"
-        >
-
-          {/* TAREA COMPLETADA */}
-          <article
-            className="tarea tarea-completada"
-            data-id="1"
-          >
+        <section id="listaTareas" className="lista-tareas">
+          {tasks.map((task) => (
+            <article 
+              key={task.id}
+              className={'tarea ${task.completed ? "tarea-completada" : ""} ${
+                taskText.isEditing ? "tarea-editando" : ""
+              }'}
+            >
+              
+              ...
+            </article>
+          ))}
+        </section>
 
             <button
               className="btn-completar completada"
