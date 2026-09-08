@@ -87,6 +87,9 @@ function handleUpdateText(id: number, newText: string) {
             type="text"
             placeholder="+ Escribe una nueva tarea..."
             aria-label="Nueva tarea"
+            value={taskText}
+            onChange={(e) => setTaskText(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleAddTask()}
           />
 
           <button
