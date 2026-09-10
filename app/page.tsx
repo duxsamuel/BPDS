@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
@@ -8,6 +7,7 @@ export default function Home() {
   { id: 1, text: "Solicitar cita médica", completed: true, isEditing: false },
   { id: 2, text: "Comprar leche y pan", completed: false, isEditing: false }
 ]);
+
 function handleAddTask() {
     if (taskText.trim() === "") return;
 
@@ -21,33 +21,35 @@ function handleAddTask() {
     setTasks([...tasks, newTask]);
     setTaskText("");
   }
+
   function handleDeleteTask(id: number) {
   setTasks(tasks.filter((task) => task.id !== id));
-}
+  }
 
-function handleToggleTask(id: number) {
-  setTasks(
-    tasks.map((task) =>
-      task.id === id ? { ...task, completed: !task.completed } : task
-    )
-  );
-}
+  function handleToggleTask(id: number) {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  }
 
-function handleToggleEdit(id: number) {
-  setTasks(
-    tasks.map((task) =>
-      task.id === id ? { ...task, isEditing: !task.isEditing } : task
-    )
-  );
-}
+  function handleToggleEdit(id: number) {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, isEditing: !task.isEditing } : task
+      )
+    );
+  }
 
-function handleUpdateText(id: number, newText: string) {
-  setTasks(
-    tasks.map((task) =>
-      task.id === id ? { ...task, text: newText } : task
-    )
-  );
-}
+  function handleUpdateText(id: number, newText: string) {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, text: newText } : task
+      )
+    );
+  }
+
   return (
     <main
       className="pagina"
@@ -59,7 +61,6 @@ function handleUpdateText(id: number, newText: string) {
         backgroundColor: "#f5f5f5",
       }}
     >
-
       <section
         className="todo"
         style={{
@@ -71,7 +72,6 @@ function handleUpdateText(id: number, newText: string) {
           border: "2px solid #333",
         }}
       >
-
         {/* ENCABEZADO */}
         <header className="todo-header">
           <h1>MIS TAREAS</h1>
@@ -81,7 +81,6 @@ function handleUpdateText(id: number, newText: string) {
 
         {/* CREAR NUEVA TAREA */}
         <section className="crear-tarea">
-
           <input
             id="nuevaTarea"
             type="text"
@@ -100,7 +99,6 @@ function handleUpdateText(id: number, newText: string) {
           >
             +
           </button>
-
         </section>
 
         {/* LISTA DE TAREAS */}
@@ -108,188 +106,63 @@ function handleUpdateText(id: number, newText: string) {
           {tasks.map((task) => (
             <article 
               key={task.id}
-              className={'tarea ${task.completed ? "tarea-completada" : ""} ${
+              className={`tarea ${task.completed ? "tarea-completada" : ""} ${
                 task.isEditing ? "tarea-editando" : ""
-              }'}
+              }`}
             >
-              
-              ...
+              <button
+                className={`btn-completar ${task.completed ? "completada" : ""}`}
+                type="button"
+                aria-label="Marcar tarea como completada"
+                onClick={() => handleToggleTask(task.id)}
+              >
+                {task.completed ? "✓" : ""}
+              </button>
+
+              {task.isEditing ? (
+                <input 
+                  className="input-editar"
+                  type="text"
+                  value={task.text}
+                  onChange={(e) => handleUpdateText(task.id, e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleToggleEdit(task.id)}
+                  autoFocus
+                />
+              ) : (
+                <span className="texto-tarea">{task.text}</span>
+              )}
+
+              <button
+                className="btn-editar"
+                type="button"
+                aria-label="Editar tarea"
+                onClick={() => handleToggleEdit(task.id)}
+              >
+                ✎
+              </button>
+
+              <button
+                className="btn-eliminar"
+                type="button"
+                aria-label="Eliminar tarea"
+                onClick={() => handleDeleteTask(task.id)}
+              >
+                🗑
+              </button>
             </article>
           ))}
         </section>
 
-            <button
-              className={'btn-completar ${task.completed ? "completada" : ""}'}
-              type="button"
-              aria-label="Marcar tarea como completada"
-              onClick={() => handleToggleTask(task.id)}
-            >
-              {task.completed ? "✓" : ""}
-            </button>
-
-          {task.isEditing ? (
-            <input 
-              className="input-editar"
-              type="text"
-              value={task.text}
-              onChange={(e) => handleUpdateText(task.id, e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleToggleEdit(task.id)}
-              autoFocus
-            />
-          ) : (
-            <span className="texto-tarea">{task.text}</span>
-          )}
-
-            <button
-              className="btn-editar"
-              type="button"
-              aria-label="Editar tarea"
-              onClick={() => handleToggleEdit(task.id)}
-            >
-              ✎
-            </button>
-
-            <button
-              className="btn-eliminar"
-              type="button"
-              aria-label="Eliminar tarea"
-              onClick={() => handleToggleEdit(task.id)}
-            >
-              🗑
-            </button>
-
-          </article>
-
-
-          {/* TAREA NORMAL */}
-          <article
-            className="tarea"
-            data-id="2"
-          >
-
-            <button
-              className="btn-completar"
-              type="button"
-              aria-label="Marcar tarea como completada"
-            >
-            </button>
-
-            <span className="texto-tarea">
-              Comprar leche y pan
-            </span>
-
-            <button
-              className="btn-editar"
-              type="button"
-              aria-label="Editar tarea"
-            >
-              ✎
-            </button>
-
-            <button
-              className="btn-eliminar"
-              type="button"
-              aria-label="Eliminar tarea"
-            >
-              🗑
-            </button>
-
-          </article>
-
-
-          {/* TAREA EN EDICIÓN */}
-          <article
-            className="tarea tarea-editando"
-            data-id="3"
-          >
-
-            <button
-              className="btn-completar"
-              type="button"
-              aria-label="Marcar tarea como completada"
-            >
-            </button>
-
-            <input
-              id="editarTarea"
-              className="input-editar"
-              type="text"
-              defaultValue="Terminar informe"
-              aria-label="Editar tarea"
-            />
-
-            <button
-              className="btn-editar"
-              type="button"
-              aria-label="Editar tarea"
-            >
-              ✎
-            </button>
-
-            <button
-              className="btn-eliminar"
-              type="button"
-              aria-label="Eliminar tarea"
-            >
-              🗑
-            </button>
-
-          </article>
-
-
-          {/* TAREA NORMAL */}
-          <article
-            className="tarea"
-            data-id="4"
-          >
-
-            <button
-              className="btn-completar"
-              type="button"
-              aria-label="Marcar tarea como completada"
-            >
-            </button>
-
-            <span className="texto-tarea">
-              Llamar al dentista
-            </span>
-
-            <button
-              className="btn-editar"
-              type="button"
-              aria-label="Editar tarea"
-            >
-              ✎
-            </button>
-
-            <button
-              className="btn-eliminar"
-              type="button"
-              aria-label="Eliminar tarea"
-            >
-              🗑
-            </button>
-
-          </article>
-
-        </section>
-
-
         {/* INFORMACIÓN INFERIOR */}
         <footer className="todo-footer">
-
           <span className="ayuda-editar">
             Desktop: ✎ aparece con hover
           </span>
-
           <span className="ayuda-eliminar">
             hover → aparece 🗑
           </span>
-
         </footer>
-
       </section>
-
     </main>
   );
 }
