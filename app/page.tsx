@@ -7,8 +7,10 @@ export default function Home() {
   { id: 1, text: "Solicitar cita médica", completed: true, isEditing: false },
   { id: 2, text: "Comprar leche y pan", completed: false, isEditing: false }
 ]);
+  const [deletedTasks, setDeletedTasks] = useState<string[]>([]);
+  const [showDeleted, setShowDeleted] = useState(false);
 
-function handleAddTask() {
+  function handleAddTask() {
     if (taskText.trim() === "") return;
 
     const newTask = {
@@ -23,7 +25,16 @@ function handleAddTask() {
   }
 
   function handleDeleteTask(id: number) {
-  setTasks(tasks.filter((task) => task.id !== id));
+    const taskToDelete = (tasks.find((task) => task.id === id));
+    if (taskToDelete) {
+      setDeletedTasks([...deletedTasks, taskToDelete.text])
+    }
+    setTasks(tasks.filter((task) => task.id !== id));
+  }
+
+  function handleToggleShowDeleted()
+  {
+    setShowDeleted(!showDeleted);
   }
 
   function handleToggleTask(id: number) {
@@ -49,7 +60,6 @@ function handleAddTask() {
       )
     );
   }
-
   return (
     <main
       className="pagina"
@@ -153,6 +163,50 @@ function handleAddTask() {
           ))}
         </section>
 
+        <section className="seccion-papelera" style={{ marginTop: "16px" }}>
+          <button
+            type="button"
+            onClick={handleToggleShowDeleted}
+            style={{
+              width: "100%",
+              padding: "8px",
+              cursor: "pointer",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              backgroundcolor: "#eee",
+              color: "#000"
+            }}
+          >
+            🗑 Papelera ({deletedTasks.length})
+          </button>
+
+          {showDeleted && (
+            <div
+              className="panel-eliminadas"
+              style={{
+                marginTop: "10px",
+                padding: "10px",
+                border: "1px dashed #999",
+                borderRadius: "8px",
+                backgroundColor: "#fafafa",
+                color: "#000"
+              }}
+            >
+              <h4 style={{ margin: "0 0 8px 0", color: "#000" }}>Tareas Eliminadas</h4>
+              {deletedTasks.length === 0 ? (
+                <p style={{ fontSize: "12px", color: "#000", margin: 0 }}>
+                  No hay tareas en la papelera.
+                </p>
+              ) : (
+                <ul style={{ margin: 0, paddingLeft: "20px", fontSize: "14px", color: "#000" }}>
+                  {deletedTasks.map((text, index) => (
+                    <li key={index}>{text}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+        </section>
         {/* INFORMACIÓN INFERIOR */}
         <footer className="todo-footer">
           <span className="ayuda-editar">
